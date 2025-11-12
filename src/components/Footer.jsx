@@ -7,18 +7,51 @@ const Footer = () => {
 
   return (
     <footer className="bg-base-200 text-base-content mt-16">
+
+
+
+
+
+<footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
+  <nav>
+    <h6 className="footer-title">Services</h6>
+    <a className="link link-hover">Branding</a>
+    <a className="link link-hover">Design</a>
+    <a className="link link-hover">Marketing</a>
+    <a className="link link-hover">Advertisement</a>
+  </nav>
+  <nav>
+    <h6 className="footer-title">Company</h6>
+    <a className="link link-hover">About us</a>
+    <a className="link link-hover">Contact</a>
+    <a className="link link-hover">Jobs</a>
+    <a className="link link-hover">Press kit</a>
+  </nav>
+  <nav>
+    <h6 className="footer-title">Legal</h6>
+    <a className="link link-hover">Terms of use</a>
+    <a className="link link-hover">Privacy policy</a>
+    <a className="link link-hover">Cookie policy</a>
+  </nav>
+</footer>
+
+
+
+
+
+
+
+
+
       <div className="container mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
-        {/* ✅ Left: Logo & Name */}
+
+
         <Link to="/" className="flex items-center gap-2">
-          <img
-            src="https://i.ibb.co/2FsfXqM/default-avatar.png"
-            alt="PlateShare Logo"
-            className="w-10 h-10 rounded-full"
-          />
+          
           <span className="text-xl font-bold text-primary">PlateShare</span>
         </Link>
 
-        {/* ✅ Middle: Social Links */}
+    
         <div className="flex gap-5 text-2xl">
           <a
             href="https://facebook.com"
@@ -54,7 +87,7 @@ const Footer = () => {
           </a>
         </div>
 
-        {/* ✅ Right: Copyright */}
+  
         <p className="text-sm text-gray-600 text-center md:text-right">
           © {currentYear} PlateShare — All rights reserved.
         </p>

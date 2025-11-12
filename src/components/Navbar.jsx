@@ -1,13 +1,9 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom"; 
-
-const AuthContext = React.createContext();
+import { NavLink } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext) || {
-    user: null,
-    logout: () => console.log("Logged out!"),
-  };
+  const { user, logout } = useContext(AuthContext);
 
   const links = (
     <>
@@ -35,7 +31,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
       {/* LEFT */}
       <div className="navbar-start">
         <div className="dropdown">
@@ -55,13 +51,11 @@ const Navbar = () => {
               />
             </svg>
           </div>
-
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
           >
             {links}
-            
           </ul>
         </div>
 
@@ -99,8 +93,8 @@ const Navbar = () => {
                 <img
                   alt="User"
                   src={
-                    user.photoURL ||
-                    "https://i.ibb.co/2FsfXqM/default-avatar.png"
+                    user?.photoURL ||
+                    "USER"
                   }
                 />
               </div>
@@ -110,13 +104,7 @@ const Navbar = () => {
               className="mt-3 z-10 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <NavLink to="/addFood">Add Food</NavLink>
-              </li>
-              <li>
-                <NavLink to="/manageFoods">Manage My Foods</NavLink>
-              </li>
-              <li>
-                <NavLink to="/myRequests">My Food Requests</NavLink>
+                <NavLink to="/profile">Profile</NavLink>
               </li>
               <li>
                 <button onClick={logout} className="text-error">

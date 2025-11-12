@@ -9,7 +9,7 @@ const FeaturedProducts = () => {
     const [foods, setFoods] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/foods").then((res) => res.json())
+    fetch("http://localhost:5000/food").then((res) => res.json())
       .then((data) => {
     
         const sorted = data.sort((a, b) => b.quantity - a.quantity).slice(0, 6);
