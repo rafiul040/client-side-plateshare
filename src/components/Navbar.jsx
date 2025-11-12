@@ -1,6 +1,6 @@
-
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom"; 
+
 const AuthContext = React.createContext();
 
 const Navbar = () => {
@@ -36,14 +36,10 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
-    
+      {/* LEFT */}
       <div className="navbar-start">
         <div className="dropdown">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost lg:hidden"
-          >
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -59,50 +55,53 @@ const Navbar = () => {
               />
             </svg>
           </div>
+
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
           >
             {links}
-            {!user ? (
-              <NavLink to="/login" className="btn btn-primary mt-2">
-                Login
-              </NavLink>
-            ) : (
-              <button
-                onClick={logout}
-                className="btn btn-error text-white mt-2"
-              >
-                Logout
-              </button>
-            )}
+            
           </ul>
         </div>
+
         <NavLink to="/" className="btn btn-ghost normal-case text-xl">
           🍽 PlateShare
         </NavLink>
       </div>
 
-      
+      {/* CENTER */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal gap-5 font-semibold px-1">
           {links}
         </ul>
       </div>
 
-      
-      <div className="navbar-end">
+      {/* RIGHT */}
+      <div className="navbar-end flex gap-2">
         {!user ? (
-          <NavLink to="/login" className="btn btn-primary">
-            Login
-          </NavLink>
+          <>
+            <NavLink to="/login" className="btn btn-primary">
+              Login
+            </NavLink>
+            <NavLink to="/register" className="btn btn-outline btn-primary">
+              Register
+            </NavLink>
+          </>
         ) : (
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
               <div className="w-10 rounded-full">
                 <img
                   alt="User"
-                  src={user.photoURL || "https://i.ibb.co/2FsfXqM/default-avatar.png"}
+                  src={
+                    user.photoURL ||
+                    "https://i.ibb.co/2FsfXqM/default-avatar.png"
+                  }
                 />
               </div>
             </div>

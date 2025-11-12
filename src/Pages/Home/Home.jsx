@@ -21,6 +21,8 @@ const Home = () => {
 
       {/* ✅ STATIC SECTION 2: OUR MISSION */}
       <OurMission></OurMission>
+
+      
     </div>
   );
 };

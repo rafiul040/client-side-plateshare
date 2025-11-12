@@ -10,17 +10,14 @@ const MainLayout = () => {
             <header>
             <Navbar></Navbar>
             </header>
-            {/* <main>
-            <Home></Home>
-            </main> */}
+            
 
             <section>
                 <Outlet></Outlet>
             </section>
 
-            <footer>
+            
                 <Footer></Footer>
-            </footer>
         </div>
     );
 };
