@@ -6,14 +6,17 @@ const MyFoodRequests = () => {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/myFoodRequests?email=${user.email}`)
+    if (!user?.email) return;
+
+    fetch(`http://localhost:5000/my-food-requests?email=${user.email}`)
       .then(res => res.json())
-      .then(data => setRequests(data));
+      .then(data => setRequests(data))
+      .catch(err => console.error(err));
   }, [user]);
 
   const handleStatusChange = (id, newStatus) => {
-    fetch(`http://localhost:5000/foodRequests/${id}`, {
-      method: "PATCH",
+    fetch(`http://localhost:5000/food-requests/${id}`, {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus }),
     })

@@ -7,7 +7,7 @@ const AddFood = () => {
   const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     foodName: "",
-    foodImage: "", // 👈 direct image link input
+    foodImage: "", 
     foodQuantity: "",
     pickupLocation: "",
     expireDate: "",
@@ -15,19 +15,19 @@ const AddFood = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  // Handle form input changes
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle submit
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     const foodData = {
       food_name: formData.foodName,
-      food_image: formData.foodImage, // 👈 use link directly
+      food_image: formData.foodImage, 
       food_quantity: formData.foodQuantity,
       pickup_location: formData.pickupLocation,
       expire_date: formData.expireDate,
