@@ -10,7 +10,7 @@ const Register = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
 
-  // Redirect if already logged in
+
   useEffect(() => {
     if (user) navigate("/");
   }, [user, navigate]);
@@ -34,7 +34,7 @@ const Register = () => {
 
       setUser(user);
       toast.success("Registered successfully!");
-      setTimeout(() => navigate("/"), 500); // small delay to show toast
+      setTimeout(() => navigate("/"), 500); 
     } catch (error) {
       toast.error(error.message);
     }

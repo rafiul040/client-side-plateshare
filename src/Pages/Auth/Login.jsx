@@ -11,7 +11,7 @@ const Login = () => {
   const { user, setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
 
-  // Redirect if already logged in
+  
   useEffect(() => {
     if (user) {
       navigate("/");
@@ -42,7 +42,7 @@ const Login = () => {
       const user = await loginUser(email, password);
       setUser(user);
       toast.success("Logged in successfully!");
-setTimeout(() => navigate("/"), 500); // delay before redirect
+setTimeout(() => navigate("/"), 500); 
 
     } catch (error) {
       toast.error("Login failed: " + error.message);
