@@ -16,13 +16,13 @@ const Navbar = () => {
 
       {user && (
         <>
-          <NavLink to="/addFood" className="hover:text-primary">
+          <NavLink to="/add-Food" className="hover:text-primary">
             Add Food
           </NavLink>
-          <NavLink to="/manageFoods" className="hover:text-primary">
+          <NavLink to="/manage-my-foods" className="hover:text-primary">
             Manage My Foods
           </NavLink>
-          <NavLink to="/myRequests" className="hover:text-primary">
+          <NavLink to="/my-food-request" className="hover:text-primary">
             My Food Requests
           </NavLink>
         </>
