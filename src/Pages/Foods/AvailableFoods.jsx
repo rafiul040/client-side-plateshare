@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import { api } from "../../utils/axiosInstance";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -86,12 +86,11 @@ const AvailableFoods = () => {
                 <strong>Expire Date:</strong> {food.expire_date}
               </p>
 
-              <button
-                onClick={() => handleViewDetails(food._id)}
-                className="btn btn-outline btn-primary w-full"
-              >
-                View Details
-              </button>
+              
+              <Link onClick={handleViewDetails} to={`/food/${food._id}`} className="btn btn-primary btn-sm">
+  View Details
+</Link>
+
             </div>
           </div>
         ))}
