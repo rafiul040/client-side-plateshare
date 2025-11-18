@@ -1,7 +1,5 @@
-
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
 import { AuthContext } from "../../Context/AuthProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -14,37 +12,33 @@ const FoodDetails = () => {
   const [food, setFood] = useState(null);
   const [requests, setRequests] = useState([]);
   const [showModal, setShowModal] = useState(false);
+
   const [formData, setFormData] = useState({
     location: "",
     reason: "",
     contact: "",
   });
 
-
   useEffect(() => {
     if (!user) {
       navigate("/login");
       return;
     }
+
     axios
       .get(`/foods/${id}`)
       .then((res) => setFood(res.data))
-      .catch(() => {
-        Swal.fire("Error", "Unable to fetch food details", "error");
-        navigate("/availableFoods");
-      });
-  }, [id, user, navigate]);
+      .catch(() => navigate("/availableFoods"));
+  }, [id, user]);
 
+  
   useEffect(() => {
     if (food && user?.email === food.donator_email) {
-      axios
-        .get(`/food-requests/${food._id}`)
-        .then((res) => setRequests(res.data))
-        .catch(() => Swal.fire("Error", "Failed to fetch requests", "error"));
+      axios.get(`/food-requests/${food._id}`).then((res) => setRequests(res.data));
     }
   }, [food, user]);
 
-  
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -52,7 +46,6 @@ const FoodDetails = () => {
   
   const handleSubmitRequest = async (e) => {
     e.preventDefault();
-    if (!user) return;
 
     const requestData = {
       ...formData,
@@ -65,125 +58,103 @@ const FoodDetails = () => {
 
     try {
       await axios.post("/food-requests", requestData);
+
+      
+      setFood((prev) => ({
+        ...prev,
+        food_quantity: prev.food_quantity - 1,
+      }));
+
+      
+      await axios.put(`/foods/${food._id}`, {
+        food_quantity: food.food_quantity - 1,
+      });
+
       Swal.fire("Success", "Your request has been submitted.", "success");
       setShowModal(false);
       setFormData({ location: "", reason: "", contact: "" });
-      
-      if (user.email === food.donator_email) {
-        const updated = await axios.get(`/food-requests/${food._id}`);
-        setRequests(updated.data);
-      }
     } catch {
       Swal.fire("Error", "Failed to submit request.", "error");
     }
   };
 
   
-  const handleRequestAction = async (reqId, action) => {
-    try {
-      await axios.put(`/food-requests/${reqId}`, { status: action });
-      Swal.fire("Updated!", `Request ${action}`, "success");
-      const updated = await axios.get(`/food-requests/${food._id}`);
-      setRequests(updated.data);
-    } catch {
-      Swal.fire("Error", "Failed to update request.", "error");
-    }
+  const handleRequestAction = async (reqId, status) => {
+    await axios.put(`/food-requests/${reqId}`, { status });
+    Swal.fire("Updated!", `Request ${status}`, "success");
+
+    const updated = await axios.get(`/food-requests/${food._id}`);
+    setRequests(updated.data);
   };
 
-  if (!food) return <div className="p-5">Loading details...</div>;
+  if (!food) return <div className="p-5">Loading...</div>;
 
   return (
     <div className="p-5 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">{food.food_name}</h1>
+
+      <h1 className="text-3xl font-bold mb-3">{food.food_name}</h1>
+
       <img
         src={food.food_image}
-        alt={food.food_name}
-        className="mb-4 max-h-96 w-full object-cover rounded"
+        className="w-full rounded h-80 object-cover mb-4"
       />
-      <p>
-        <strong>Quantity:</strong> {food.food_quantity}
-      </p>
-      <p>
-        <strong>Pickup Location:</strong> {food.pickup_location}
-      </p>
-      <p>
-        <strong>Expire Date:</strong> {food.expire_date}
-      </p>
-      <p className="mt-2">
-        <strong>Donated by:</strong>{" "}
+
+      <p><strong>Quantity:</strong> {food.food_quantity}</p>
+      <p><strong>Pickup:</strong> {food.pickup_location}</p>
+      <p><strong>Expire:</strong> {food.expire_date}</p>
+
+      <p className="mt-3">
         <img
           src={food.donator_photo}
-          alt={food.donator_name}
           className="inline-block w-8 h-8 rounded-full mr-2"
         />
         {food.donator_name}
       </p>
-      <p className="mt-3 whitespace-pre-line">{food.additional_notes}</p>
 
-      
-      {user && (
-        <button
-          className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-          onClick={() => setShowModal(true)}
-        >
-          Request Food
-        </button>
-      )}
+      <p className="mt-3">{food.additional_notes}</p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+      <button
+        onClick={() => setShowModal(true)}
+        className="mt-5 px-4 py-2 bg-green-600 text-white rounded"
+      >
+        Request Food
+      </button>
 
       
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <form
             onSubmit={handleSubmitRequest}
             className="bg-white rounded p-6 max-w-md w-full"
           >
-            <h2 className="text-xl font-bold mb-4">Submit a Food Request</h2>
+            <h2 className="text-xl font-bold mb-4">Submit Request</h2>
+
             <input
-              type="text"
               name="location"
               placeholder="Your Location"
+              className="w-full border p-2 mb-3"
               value={formData.location}
               onChange={handleChange}
-              required
-              className="w-full mb-3 p-2 border rounded"
             />
+
             <textarea
               name="reason"
-              placeholder="Why do you need this food?"
+              placeholder="Reason"
+              className="w-full border p-2 mb-3"
               value={formData.reason}
               onChange={handleChange}
-              required
-              className="w-full mb-3 p-2 border rounded"
             />
+
             <input
-              type="text"
               name="contact"
               placeholder="Contact Number"
+              className="w-full border p-2 mb-3"
               value={formData.contact}
               onChange={handleChange}
-              required
-              className="w-full mb-4 p-2 border rounded"
             />
-            <div className="flex justify-end gap-3">
+
+            <div className="flex justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setShowModal(false)}
@@ -191,9 +162,10 @@ const FoodDetails = () => {
               >
                 Cancel
               </button>
+
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="px-4 py-2 bg-blue-600 text-white rounded"
               >
                 Submit
               </button>
@@ -203,40 +175,43 @@ const FoodDetails = () => {
       )}
 
       
-      {user?.email === food.donator_email && requests.length > 0 && (
+      {user?.email === food.donator_email && (
         <div className="mt-10">
-          <h3 className="text-2xl font-bold mb-4">Food Requests</h3>
-          <table className="w-full border-collapse border border-gray-300">
+          <h2 className="text-2xl font-bold mb-4">Food Requests</h2>
+
+          <table className="w-full border">
             <thead>
               <tr>
-                <th className="border px-2 py-1">Name</th>
-                <th className="border px-2 py-1">Location</th>
-                <th className="border px-2 py-1">Reason</th>
-                <th className="border px-2 py-1">Contact</th>
-                <th className="border px-2 py-1">Status</th>
-                <th className="border px-2 py-1">Actions</th>
+                <th className="border p-2">Name</th>
+                <th className="border p-2">Location</th>
+                <th className="border p-2">Reason</th>
+                <th className="border p-2">Contact</th>
+                <th className="border p-2">Status</th>
+                <th className="border p-2">Actions</th>
               </tr>
             </thead>
+
             <tbody>
               {requests.map((req) => (
-                <tr key={req._id} className="text-center">
-                  <td className="border px-2 py-1">{req.name}</td>
-                  <td className="border px-2 py-1">{req.location}</td>
-                  <td className="border px-2 py-1">{req.reason}</td>
-                  <td className="border px-2 py-1">{req.contact}</td>
-                  <td className="border px-2 py-1 capitalize">{req.status}</td>
-                  <td className="border px-2 py-1 space-x-2">
+                <tr key={req._id}>
+                  <td className="border p-2">{req.name}</td>
+                  <td className="border p-2">{req.location}</td>
+                  <td className="border p-2">{req.reason}</td>
+                  <td className="border p-2">{req.contact}</td>
+                  <td className="border p-2">{req.status}</td>
+
+                  <td className="border p-2">
                     {req.status === "pending" && (
                       <>
                         <button
+                          className="px-2 py-1 bg-green-500 text-white mr-2"
                           onClick={() => handleRequestAction(req._id, "accepted")}
-                          className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
                         >
                           Accept
                         </button>
                         <button
+                          className="px-2 py-1 bg-red-500 text-white"
                           onClick={() => handleRequestAction(req._id, "rejected")}
-                          className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                         >
                           Reject
                         </button>
@@ -246,6 +221,7 @@ const FoodDetails = () => {
                 </tr>
               ))}
             </tbody>
+
           </table>
         </div>
       )}
@@ -254,3 +230,4 @@ const FoodDetails = () => {
 };
 
 export default FoodDetails;
+

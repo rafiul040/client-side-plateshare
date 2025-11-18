@@ -30,7 +30,7 @@ const AvailableFoods = () => {
     return (
       <div className="text-center my-20">
         <h2 className="text-2xl font-semibold text-gray-600">
-          😕 No available foods found.
+           No available foods found.
         </h2>
       </div>
     );
@@ -68,7 +68,6 @@ const AvailableFoods = () => {
               <div className="flex items-center gap-2 mb-2">
                 <img
                   src={food.donator_photo}
-                  alt={food.donator_name}
                   className="w-8 h-8 rounded-full"
                 />
                 <span className="text-sm text-gray-700">
@@ -100,3 +99,5 @@ const AvailableFoods = () => {
 };
 
 export default AvailableFoods;
+
+

@@ -23,7 +23,7 @@ const Register = () => {
     const email = form.email.value.trim();
     const password = form.password.value;
 
-    // Password validation
+  
     if (password.length < 6) return toast.error("Password must be at least 6 characters long.");
     if (!/[A-Z]/.test(password)) return toast.error("Password must contain at least one uppercase letter.");
     if (!/[a-z]/.test(password)) return toast.error("Password must contain at least one lowercase letter.");
@@ -31,7 +31,6 @@ const Register = () => {
     try {
       const user = await registerUser(email, password, name);
       if (photoURL) await updateProfile(user, { photoURL });
-
       setUser(user);
       toast.success("Registered successfully!");
       setTimeout(() => navigate("/"), 500); 
@@ -90,5 +89,4 @@ const Register = () => {
     </div>
   );
 };
-
 export default Register;

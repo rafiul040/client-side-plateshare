@@ -16,7 +16,7 @@ const Navbar = () => {
 
       {user && (
         <>
-          <NavLink to="/add-Food" className="hover:text-primary">
+          {/* <NavLink to="/add-Food" className="hover:text-primary">
             Add Food
           </NavLink>
           <NavLink to="/manage-my-foods" className="hover:text-primary">
@@ -24,7 +24,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink to="/my-food-request" className="hover:text-primary">
             My Food Requests
-          </NavLink>
+          </NavLink> */}
         </>
       )}
     </>
@@ -32,7 +32,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
-      {/* LEFT */}
+      
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -64,14 +64,14 @@ const Navbar = () => {
         </NavLink>
       </div>
 
-      {/* CENTER */}
+  
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal gap-5 font-semibold px-1">
           {links}
         </ul>
       </div>
 
-      {/* RIGHT */}
+      
       <div className="navbar-end flex gap-2">
         {!user ? (
           <>
@@ -105,6 +105,15 @@ const Navbar = () => {
             >
               <li>
                 <NavLink to="/profile">Profile</NavLink>
+              </li>
+              <li>
+                <NavLink to="/add-food">Add Food</NavLink>
+              </li>
+              <li>
+                <NavLink to="/manage-my-foods">Manage My Foods</NavLink>
+              </li>
+              <li>
+                <NavLink to="/my-food-request">My Food Request</NavLink>
               </li>
               <li>
                 <button onClick={logout} className="text-error">
