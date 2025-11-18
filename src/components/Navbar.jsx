@@ -76,10 +76,10 @@ const Navbar = () => {
       <div className="navbar-end flex gap-2">
         {!user ? (
           <>
-            <NavLink to="/login" className="btn btn-primary">
+            <NavLink to="/login" className="btn hover:bg-amber-100 bg-[#ebc15e]">
               Login
             </NavLink>
-            <NavLink to="/register" className="btn btn-outline btn-primary">
+            <NavLink to="/register" className="btn  hover:bg-[#ebc15e] bg-amber-50">
               Register
             </NavLink>
           </>

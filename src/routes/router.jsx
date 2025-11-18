@@ -12,6 +12,7 @@ import ManageMyFoods from "../Pages/Foods/ManageMyFoods";
 import MyFoodRequests from "../Pages/Foods/MyFoodRequests";
 import FoodDetails from "../Pages/Foods/FoodDetails";
 import PrivateRoute from "./PrivateRoute";
+import FoodCard from "../components/FoodCard";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: "/profile",
         Component: Profile,
+      },
+      {
+        path: "/search-food",
+        Component: FoodCard,
       },
       {
         path: "/add-food",
