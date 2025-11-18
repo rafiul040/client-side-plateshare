@@ -7,10 +7,10 @@ const Navbar = () => {
 
   const links = (
     <>
-      <NavLink to="/" className="hover:text-primary">
+      <NavLink to="/" className="hover:text-[#8d5751] text-[#ac7800] font-bold">
         Home
       </NavLink>
-      <NavLink to="/availableFoods" className="hover:text-primary">
+      <NavLink to="/availableFoods" className="hover:text-[#8d5751] font-bold text-[#ac7800]">
         Available Foods
       </NavLink>
 
@@ -31,7 +31,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
+    <div className="navbar bg-[#fef9ee] shadow-sm sticky top-0 z-50">
       
       <div className="navbar-start">
         <div className="dropdown">
@@ -59,8 +59,9 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <NavLink to="/" className="btn btn-ghost normal-case text-xl">
-          🍽 PlateShare
+        <NavLink to="/" className="btn btn-ghost outline-none normal-case text-xl">
+          <img src="https://i.ibb.co.com/wZLf9dTJ/logo-plateshare.png" className="w-16 h-16 rounded-4xl" alt="" /> <span className="font-semibold text-2xl text-[#b48518]">PLATESHARE</span>
+        
         </NavLink>
       </div>
 
