@@ -1,37 +1,24 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthProvider";
 
 const AddFood = () => {
   const { user } = useContext(AuthContext);
-  const [formData, setFormData] = useState({
-    foodName: "",
-    foodImage: "", 
-    foodQuantity: "",
-    pickupLocation: "",
-    expireDate: "",
-    additionalNotes: "",
-  });
   const [loading, setLoading] = useState(false);
 
-  
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
+    const form = e.target;
     const foodData = {
-      food_name: formData.foodName,
-      food_image: formData.foodImage, 
-      food_quantity: formData.foodQuantity,
-      pickup_location: formData.pickupLocation,
-      expire_date: formData.expireDate,
-      additional_notes: formData.additionalNotes,
+      food_name: form.foodName.value,
+      food_image: form.foodImage.value,
+      food_quantity: form.foodQuantity.value,
+      pickup_location: form.pickupLocation.value,
+      expire_date: form.expireDate.value,
+      additional_notes: form.additionalNotes.value,
       food_status: "Available",
       donator_name: user?.displayName,
       donator_email: user?.email,
@@ -42,81 +29,77 @@ const AddFood = () => {
       const res = await axios.post("http://localhost:3000/add-food", foodData);
 
       if (res.data.insertedId) {
-        toast.success("✅ Food added successfully!");
-        e.target.reset();
+        toast.success("Food added successfully!");
+        form.reset();
+
+        // এটা সবচেয়ে গুরুত্বপূর্ণ: অন্য কম্পোনেন্টকে জানায় যে নতুন ফুড এসেছে
+        window.dispatchEvent(new Event("foodAdded"));
       }
     } catch (error) {
       console.error(error);
-      toast.error("❌ Failed to add food");
+      toast.error("Failed to add food");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto my-10 p-6 bg-white rounded shadow">
-      <div className="flex justify-center">
+    <div className="max-w-2xl mx-auto my-12 p-8 bg-white rounded-xl shadow-lg">
+      <h2 className="text-3xl font-bold text-center mb-8">Add New Food</h2>
 
-      <form onSubmit={handleSubmit}>
-      <h2 className="text-2xl font-bold mb-4">🍱 Add Food</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <input
             type="text"
             name="foodName"
             placeholder="Food Name"
-            className="input input-bordered"
-            onChange={handleChange}
+            className="input input-bordered w-full"
             required
-            />
+          />
           <input
-            type="text"
+            type="url"
             name="foodImage"
-            placeholder="Image URL"
-            className="input input-bordered"
-            onChange={handleChange}
+            placeholder="Food Image URL"
+            className="input input-bordered w-full"
             required
-            />
+          />
           <input
             type="number"
             name="foodQuantity"
-            placeholder="Quantity"
-            className="input input-bordered"
-            onChange={handleChange}
+            placeholder="Quantity (serves how many)"
+            className="input input-bordered w-full"
             required
-            />
+          />
           <input
             type="text"
             name="pickupLocation"
             placeholder="Pickup Location"
-            className="input input-bordered"
-            onChange={handleChange}
+            className="input input-bordered w-full"
             required
-            />
+          />
           <input
             type="date"
             name="expireDate"
-            className="input input-bordered"
-            onChange={handleChange}
+            className="input input-bordered w-full"
             required
-            />
+          />
         </div>
 
         <textarea
           name="additionalNotes"
-          placeholder="Additional Notes"
-          className="textarea textarea-bordered mt-4"
-          onChange={handleChange}
-          ></textarea>
+          placeholder="Additional Notes (optional)"
+          className="textarea textarea-bordered w-full h-28"
+          rows="4"
+        ></textarea>
 
         <button
           type="submit"
           disabled={loading}
-          className="btn btn-primary w-full mt-4"
-          >
+          className="btn btn-success w-full text-white text-lg"
+        >
           {loading ? "Adding..." : "Add Food"}
         </button>
       </form>
-          </div>
     </div>
   );
 };
