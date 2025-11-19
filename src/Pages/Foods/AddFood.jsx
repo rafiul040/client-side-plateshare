@@ -54,9 +54,11 @@ const AddFood = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto my-10 p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">🍱 Add Food</h2>
+    <div className="max-w-xl mx-auto my-10 p-6 bg-white rounded shadow">
+      <div className="flex justify-center">
+
       <form onSubmit={handleSubmit}>
+      <h2 className="text-2xl font-bold mb-4">🍱 Add Food</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="text"
@@ -65,7 +67,7 @@ const AddFood = () => {
             className="input input-bordered"
             onChange={handleChange}
             required
-          />
+            />
           <input
             type="text"
             name="foodImage"
@@ -73,7 +75,7 @@ const AddFood = () => {
             className="input input-bordered"
             onChange={handleChange}
             required
-          />
+            />
           <input
             type="number"
             name="foodQuantity"
@@ -81,7 +83,7 @@ const AddFood = () => {
             className="input input-bordered"
             onChange={handleChange}
             required
-          />
+            />
           <input
             type="text"
             name="pickupLocation"
@@ -89,31 +91,32 @@ const AddFood = () => {
             className="input input-bordered"
             onChange={handleChange}
             required
-          />
+            />
           <input
             type="date"
             name="expireDate"
             className="input input-bordered"
             onChange={handleChange}
             required
-          />
+            />
         </div>
 
         <textarea
           name="additionalNotes"
           placeholder="Additional Notes"
-          className="textarea textarea-bordered w-full mt-4"
+          className="textarea textarea-bordered mt-4"
           onChange={handleChange}
-        ></textarea>
+          ></textarea>
 
         <button
           type="submit"
           disabled={loading}
           className="btn btn-primary w-full mt-4"
-        >
+          >
           {loading ? "Adding..." : "Add Food"}
         </button>
       </form>
+          </div>
     </div>
   );
 };

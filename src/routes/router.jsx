@@ -13,11 +13,13 @@ import MyFoodRequests from "../Pages/Foods/MyFoodRequests";
 import FoodDetails from "../Pages/Foods/FoodDetails";
 import PrivateRoute from "./PrivateRoute";
 import FoodCard from "../components/FoodCard";
+import ErrorPage from "../Pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
+    // errorElement: Error404,
     children: [
       {
         index: true,
@@ -78,5 +80,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  { 
+    path: "/*", 
+    element: <ErrorPage /> 
   },
 ]);

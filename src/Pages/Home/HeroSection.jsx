@@ -9,33 +9,31 @@ import "swiper/css/pagination";
 
 const textAnimationFromTop = {
   hidden: { opacity: 0, y: -50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1.2 } }
+  visible: { opacity: 1, y: 0, transition: { duration: 1.2 } },
 };
-
 
 const heroSlides = [
   {
     title: "Share Food, Spread Love 🍽",
     desc: "PlateShare helps you donate surplus meals, reduce food waste, and support people who need it most — all with one simple step.",
-    image: "https://i.ibb.co.com/Kcm6WBj1/Screenshot-34.png"
+    image: "https://i.ibb.co.com/Kcm6WBj1/Screenshot-34.png",
   },
   {
     title: "Turn Extra Meals Into Hope ✨",
     desc: "Every shared meal can brighten someone’s day — PlateShare connects your surplus food with people who truly need it.",
-    image: "https://images.unsplash.com/photo-1525755662778-989d0524087e"
+    image: "https://images.unsplash.com/photo-1525755662778-989d0524087e",
   },
   {
     title: "Reduce Waste, Help Communities 🤝",
     desc: "Together we can minimize food waste and support families, creating a stronger and more caring community.",
-    image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe"
-  }
+    image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
+  },
 ];
 
 const HeroSection = () => {
   return (
     <div>
       <section className="m-20 w-full mx-auto relative">
-
         <Swiper
           modules={[Autoplay, Pagination]}
           spaceBetween={20}
@@ -44,24 +42,19 @@ const HeroSection = () => {
           pagination={{ clickable: true }}
           className="rounded-xl overflow-hidden"
         >
-          
           {heroSlides.map((slide, index) => (
             <SwiperSlide key={index}>
               <div className="relative">
-
-                
                 <img
                   className="mx-auto w-full rounded-2xl h-[56vh] object-cover"
                   src={slide.image}
                   alt={`slide-${index}`}
                 />
 
-                
-                
-<div className="absolute inset-0 flex flex-col items-center justify-center text-center px-5 
-bg-gradient-to-b from-black/40 via-black/30 to-black/60 rounded-xl">
-
-                  
+                <div
+                  className="absolute inset-0 flex flex-col items-center justify-center text-center px-5 
+bg-gradient-to-b from-black/40 via-black/30 to-black/60 rounded-xl"
+                >
                   <motion.h1
                     variants={textAnimationFromTop}
                     initial="hidden"
@@ -71,7 +64,6 @@ bg-gradient-to-b from-black/40 via-black/30 to-black/60 rounded-xl">
                     {slide.title}
                   </motion.h1>
 
-                
                   <motion.p
                     variants={textAnimationFromTop}
                     initial="hidden"
@@ -81,8 +73,6 @@ bg-gradient-to-b from-black/40 via-black/30 to-black/60 rounded-xl">
                   >
                     {slide.desc}
                   </motion.p>
-
-                  
                   <motion.div
                     variants={textAnimationFromTop}
                     initial="hidden"
@@ -90,10 +80,12 @@ bg-gradient-to-b from-black/40 via-black/30 to-black/60 rounded-xl">
                     transition={{ delay: 1.6 }}
                     className="flex gap-4"
                   >
-                    <Link to="/availableFoods" className="btn bg-amber-400 hover:bg-amber-200 font-bold px-6">
+                    <Link
+                      to="/availableFoods"
+                      className="btn bg-amber-400 hover:bg-amber-200 font-bold px-6"
+                    >
                       View All Foods
                     </Link>
-
                     <Link
                       to="/availableFoods"
                       className="btn bg-amber-50 hover:bg-amber-300 text-black px-6"
@@ -101,18 +93,13 @@ bg-gradient-to-b from-black/40 via-black/30 to-black/60 rounded-xl">
                       Search Food
                     </Link>
                   </motion.div>
-
                 </div>
-
               </div>
             </SwiperSlide>
           ))}
-
         </Swiper>
-
       </section>
     </div>
   );
 };
-
 export default HeroSection;
