@@ -11,7 +11,7 @@ const AvailableFoods = () => {
   useEffect(() => {
     const fetchFoods = async () => {
       try {
-        const res = await api.get("/foods"); // 👈 ALL FOODS LOAD
+        const res = await api.get("/foods"); 
         setFoods(res.data);
       } catch (error) {
         console.error("Error fetching foods:", error);
@@ -82,9 +82,9 @@ const AvailableFoods = () => {
                   <strong>Expire Date:</strong> {food.expire_date}
                 </p>
 
-                {/* SHOW STATUS also if you want */}
+                
                 <p className="text-sm mb-2">
-                  <strong>Status:</strong> {food.status}
+                  <strong>Status:</strong> {food.food_status}
                 </p>
 
                 <Link
