@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Context/AuthProvider";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { api } from "../../utils/axiosInstance";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
@@ -9,13 +8,10 @@ const AvailableFoods = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-
   useEffect(() => {
     const fetchFoods = async () => {
       try {
-        const res = await api.get("/foods?status=Available");
+        const res = await api.get("/foods"); // 👈 ALL FOODS LOAD
         setFoods(res.data);
       } catch (error) {
         console.error("Error fetching foods:", error);
@@ -28,21 +24,13 @@ const AvailableFoods = () => {
 
   if (loading) return <LoadingSpinner />;
 
-  const handleViewDetails = (id) => {
-    if (!user) {
-      navigate("/login");
-    } else {
-      navigate(`/food/${id}`);
-    }
-  };
-
   const filteredFoods = foods.filter((food) =>
     food.food_name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      <title>Plateshare | Available Foods</title>
+      <title>All Foods | Plateshare</title>
 
       <div className="text-center mb-8">
         <input
@@ -70,6 +58,7 @@ const AvailableFoods = () => {
                 alt={food.food_name}
                 className="w-full h-52 object-cover"
               />
+
               <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2">{food.food_name}</h3>
 
@@ -93,19 +82,24 @@ const AvailableFoods = () => {
                   <strong>Expire Date:</strong> {food.expire_date}
                 </p>
 
+                {/* SHOW STATUS also if you want */}
+                <p className="text-sm mb-2">
+                  <strong>Status:</strong> {food.status}
+                </p>
+
                 <Link
-                  onClick={() => handleViewDetails(food._id)}
+                  to={`/food/${food._id}`}
                   className="
-        flex items-center gap-3
-        px-6 py-3
-        w-37 h-10
-        rounded-full
-        bg-gradient-to-r from-yellow-700 to-yellow-400
-        text-white font-semibold
-        shadow-md shadow-yellow-300/60
-        hover:brightness-110
-        transition
-        "
+                    flex items-center gap-3
+                    px-6 py-3
+                    w-37 h-10
+                    rounded-full
+                    bg-gradient-to-r from-yellow-700 to-yellow-400
+                    text-white font-semibold
+                    shadow-md shadow-yellow-300/60
+                    hover:brightness-110
+                    transition
+                  "
                 >
                   View Details
                 </Link>
