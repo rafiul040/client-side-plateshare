@@ -51,13 +51,15 @@ const HeroSection = () => {
 
                 
                 <img
-                  className="mx-auto w-full rounded-2xl h-[46vh] object-cover"
+                  className="mx-auto w-full rounded-2xl h-[56vh] object-cover"
                   src={slide.image}
                   alt={`slide-${index}`}
                 />
 
                 
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-5 bg-opacity-40 rounded-xl">
+                
+<div className="absolute inset-0 flex flex-col items-center justify-center text-center px-5 
+bg-gradient-to-b from-black/40 via-black/30 to-black/60 rounded-xl">
 
                   
                   <motion.h1
@@ -80,7 +82,7 @@ const HeroSection = () => {
                     {slide.desc}
                   </motion.p>
 
-                  {/* Buttons Animation */}
+                  
                   <motion.div
                     variants={textAnimationFromTop}
                     initial="hidden"
@@ -93,7 +95,7 @@ const HeroSection = () => {
                     </Link>
 
                     <Link
-                      to="/search-food"
+                      to="/availableFoods"
                       className="btn bg-amber-50 hover:bg-amber-300 text-black px-6"
                     >
                       Search Food

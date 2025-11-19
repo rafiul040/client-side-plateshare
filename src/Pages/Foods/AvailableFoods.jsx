@@ -7,6 +7,8 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 const AvailableFoods = () => {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -26,15 +28,6 @@ const AvailableFoods = () => {
 
   if (loading) return <LoadingSpinner />;
 
-  if (foods.length === 0)
-    return (
-      <div className="text-center my-20">
-        <h2 className="text-2xl font-semibold text-gray-600">
-           No available foods found.
-        </h2>
-      </div>
-    );
-
   const handleViewDetails = (id) => {
     if (!user) {
       navigate("/login");
@@ -43,61 +36,86 @@ const AvailableFoods = () => {
     }
   };
 
+  const filteredFoods = foods.filter((food) =>
+    food.food_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold text-center mb-8 text-primary">
-        🥗 Available Foods
-      </h2>
+      <title>Plateshare | Available Foods</title>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {foods.map((food) => (
-          <div
-            key={food._id}
-            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-          >
-            <img
-              src={food.food_image}
-              alt={food.food_name}
-              className="w-full h-52 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-semibold mb-2">
-                {food.food_name}
-              </h3>
-
-              <div className="flex items-center gap-2 mb-2">
-                <img
-                  src={food.donator_photo}
-                  className="w-8 h-8 rounded-full"
-                />
-                <span className="text-sm text-gray-700">
-                  Donated by <strong>{food.donator_name}</strong>
-                </span>
-              </div>
-
-              <p className="text-sm text-gray-600 mb-1">
-                <strong>Quantity:</strong> {food.food_quantity}
-              </p>
-              <p className="text-sm text-gray-600 mb-1">
-                <strong>Pickup Location:</strong> {food.pickup_location}
-              </p>
-              <p className="text-sm text-gray-600 mb-3">
-                <strong>Expire Date:</strong> {food.expire_date}
-              </p>
-
-              
-              <Link onClick={handleViewDetails} to={`/food/${food._id}`} className="btn btn-primary btn-sm">
-  View Details
-</Link>
-
-            </div>
-          </div>
-        ))}
+      <div className="text-center mb-8">
+        <input
+          type="text"
+          placeholder="Search your foods..."
+          className="input input-bordered w-full max-w-md rounded-full px-5 py-2"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
       </div>
+
+      {filteredFoods.length === 0 ? (
+        <h2 className="text-center text-xl text-gray-500 my-10">
+          No matching foods found.
+        </h2>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredFoods.map((food) => (
+            <div
+              key={food._id}
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <img
+                src={food.food_image}
+                alt={food.food_name}
+                className="w-full h-52 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold mb-2">{food.food_name}</h3>
+
+                <div className="flex items-center gap-2 mb-2">
+                  <img
+                    src={food.donator_photo}
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <span className="text-sm text-gray-700">
+                    Donated by <strong>{food.donator_name}</strong>
+                  </span>
+                </div>
+
+                <p className="text-sm text-gray-600 mb-1">
+                  <strong>Quantity:</strong> {food.food_quantity}
+                </p>
+                <p className="text-sm text-gray-600 mb-1">
+                  <strong>Pickup Location:</strong> {food.pickup_location}
+                </p>
+                <p className="text-sm text-gray-600 mb-3">
+                  <strong>Expire Date:</strong> {food.expire_date}
+                </p>
+
+                <Link
+                  onClick={() => handleViewDetails(food._id)}
+                  className="
+        flex items-center gap-3
+        px-6 py-3
+        w-37 h-10
+        rounded-full
+        bg-gradient-to-r from-yellow-700 to-yellow-400
+        text-white font-semibold
+        shadow-md shadow-yellow-300/60
+        hover:brightness-110
+        transition
+        "
+                >
+                  View Details
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
 export default AvailableFoods;
-
-

@@ -48,7 +48,16 @@ const FeaturedProducts = () => {
 
   return (
     <section className="my-16 px-6 md:px-10 max-w-7xl mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-8">🍛 Featured Foods</h2>
+      <div className="text-center mb-4">
+        <span className="px-4 py-1 bg-orange-100 text-orange-500 rounded-full text-sm font-medium">
+         🍛 Featured Foods
+        </span>
+      </div>
+      <h2 className="text-3xl font-bold text-center mb-3">Discover our <span className="text-orange-500">Handpicked</span> meals ready</h2>
+      <p className="text-center text-gray-500 max-w-xl mx-auto mb-14">
+        Highlighting the best meals
+available right now.
+      </p>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {foods.map((food) => (
           <div
@@ -71,9 +80,8 @@ const FeaturedProducts = () => {
               <div className="card-actions justify-end">
                 <Link
                   to={`/food/${food._id}`}
-                  className="btn btn-sm btn-primary"
-                >
-                  View Details
+                  className="btn bg-neutral-300 hover:bg-amber-400 text-neutral"
+                >View Details
                 </Link>
               </div>
             </div>

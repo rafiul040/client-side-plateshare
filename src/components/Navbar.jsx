@@ -79,7 +79,7 @@ const Navbar = () => {
             <NavLink to="/login" className="btn hover:bg-amber-100 bg-[#ebc15e]">
               Login
             </NavLink>
-            <NavLink to="/register" className="btn  hover:bg-[#ebc15e] bg-amber-50">
+            <NavLink to="/register" className="btn bg-amber-50 hover:bg-amber-200">
               Register
             </NavLink>
           </>

@@ -1,33 +1,79 @@
-import React from 'react';
+import React from "react";
 
 const OurMission = () => {
-    return (
-        <div>
-            <section className="py-16 text-center px-6 md:px-10">
-        <h2 className="text-3xl font-bold mb-4">🌍 Our Mission</h2>
-        <p className="max-w-2xl mx-auto text-gray-600 mb-8">
+  const data = [
+    {
+      id: 1,
+      title: "Total Donors",
+      desc: "We will always provide you the highest can afford this",
+      icon: "7.3k+",
+    },
+    {
+      id: 2,
+      title: "Meals Shared",
+      desc: "Every shared meal can brighten someone’s day. Donate your extra food and spread kindness one plate at a time.",
+      icon: "16.4k+",
+    },
+    {
+      id: 3,
+      title: "Communities Reached",
+      desc: "Turn leftover meals into community support. Share food, reduce waste, and make a difference together.",
+      icon: "350+",
+    },
+  ];
+
+  return (
+    <section className="py-16 bg-white">
+
+
+
+
+<div className="text-center mb-4">
+        <span className="px-4 py-1 bg-orange-100 text-orange-500 rounded-full text-sm font-medium">
+          Our Mission
+        </span>
+      </div>
+
+ <h2 className="text-4xl font-bold text-center mb-3">
+        Who are <span className="text-orange-400">We</span> Our Mission
+      </h2>
+
+        <p className="max-w-2xl mx-auto text-gray-600 mb-14">
           Our mission is to create a community where no food goes to waste and
           no one goes hungry. Together, we build a sustainable and caring
           environment.
         </p>
 
-        <div className="stats shadow flex flex-wrap justify-center">
-          <div className="stat">
-            <div className="stat-title">Total Donors</div>
-            <div className="stat-value text-primary">1.2K+</div>
+
+
+
+
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-6xl mx-auto px-6">
+
+        {data.map((item) => (
+          <div
+            key={item.id}
+            className="bg-white p-8 rounded-2xl border border-gray-200
+                       shadow-[0_4px_20px_rgba(0,0,0,0.06)]
+                       text-center"
+          >
+            
+            <div className="text-3xl bg-amber-400 mx-auto w-30 h-30 font-semibold flex justify-center items-center rounded-full mb-4">{item.icon}</div>
+
+            {/* TITLE */}
+            <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+
+            {/* DESCRIPTION */}
+            <p className="text-gray-600 text-sm leading-relaxed">
+              {item.desc}
+            </p>
           </div>
-          <div className="stat">
-            <div className="stat-title">Meals Shared</div>
-            <div className="stat-value text-secondary">8.4K+</div>
-          </div>
-          <div className="stat">
-            <div className="stat-title">Communities Reached</div>
-            <div className="stat-value text-accent">350+</div>
-          </div>
-        </div>
-      </section>
-        </div>
-    );
+        ))}
+
+      </div>
+    </section>
+  );
 };
 
 export default OurMission;
