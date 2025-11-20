@@ -26,13 +26,15 @@ const AddFood = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/add-food", foodData);
+      const res = await axios.post(
+        "https://plateshare-server-mu.vercel.app/add-food",
+        foodData
+      );
 
       if (res.data.insertedId) {
         toast.success("Food added successfully!");
         form.reset();
 
-        
         window.dispatchEvent(new Event("foodAdded"));
       }
     } catch (error) {
@@ -45,10 +47,12 @@ const AddFood = () => {
 
   return (
     <div className="max-w-2xl mx-auto my-12 p-8 bg-white rounded-xl shadow-lg">
+      <title>Add Food | Plateshare</title>
       <h2 className="text-3xl font-bold text-center mb-8">Add New Food</h2>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <label className="-mb-3">Food Name :</label>
           <input
             type="text"
             name="foodName"
@@ -56,6 +60,7 @@ const AddFood = () => {
             className="input input-bordered w-full"
             required
           />
+          <label className="-mb-3">Food URL :</label>
           <input
             type="url"
             name="foodImage"
@@ -63,6 +68,7 @@ const AddFood = () => {
             className="input input-bordered w-full"
             required
           />
+          <label className="-mb-3">Food Quantity :</label>
           <input
             type="number"
             name="foodQuantity"
@@ -70,6 +76,7 @@ const AddFood = () => {
             className="input input-bordered w-full"
             required
           />
+          <label className="-mb-3">Pickup Location :</label>
           <input
             type="text"
             name="pickupLocation"
@@ -77,9 +84,11 @@ const AddFood = () => {
             className="input input-bordered w-full"
             required
           />
+          <label className="-mb-3">Expire Date :</label>
           <input
             type="date"
             name="expireDate"
+            placeholder="Expire Date"
             className="input input-bordered w-full"
             required
           />
@@ -95,15 +104,8 @@ const AddFood = () => {
         <button
           type="submit"
           disabled={loading}
-          // className="btn btn-success w-full text-white text-lg"
-          className="btn-grad w-full
-         text-white uppercase text-center
-         px-11 py-4 m-2 block
-         rounded-[10px] shadow-[0_0_20px_#eee]
-         bg-gradient-to-r from-[#ffb347] via-[#ffcc33] to-[#ffb347]
-         bg-[length:200%_auto]
-         transition-all duration-500
-         hover:bg-[position:right_center]"
+          className="btn btn-success cursor-pointer w-full text-amber-300 text-lg"
+        
         >
           {loading ? "Adding..." : "Add Food"}
         </button>
@@ -113,3 +115,5 @@ const AddFood = () => {
 };
 
 export default AddFood;
+
+

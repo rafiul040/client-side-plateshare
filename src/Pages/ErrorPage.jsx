@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 const ErrorPage = () => (
   <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">
+          <title>Error Page | Plateshare</title>
     <img
       src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png"
       alt="404 Error"

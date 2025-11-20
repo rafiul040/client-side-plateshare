@@ -7,10 +7,10 @@ const Navbar = () => {
 
   const links = (
     <>
-      <NavLink to="/" className="hover:text-[#8d5751] text-[#ac7800] font-bold">
+      <NavLink to="/" className="hover:text-[#8d5751] p-3 text-[#ac7800] font-bold">
         Home
       </NavLink>
-      <NavLink to="/availableFoods" className="hover:text-[#8d5751] font-bold text-[#ac7800]">
+      <NavLink to="/availableFoods" className="hover:text-[#8d5751] font-bold p-3 text-[#ac7800]">
         Available Foods
       </NavLink>
 
@@ -53,7 +53,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-5 shadow"
           >
             {links}
           </ul>
@@ -102,21 +102,21 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="mt-3 z-10 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              className="mt-3 z-10 p-5 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
-              <li>
+              <li className="p-3 font-semibold hover:bg-amber-200 hover:rounded-xl">
                 <NavLink to="/profile">Profile</NavLink>
               </li>
-              <li>
+              <li className="p-3 font-semibold hover:bg-amber-200 hover:rounded-xl">
                 <NavLink to="/add-food">Add Food</NavLink>
               </li>
-              <li>
+              <li className="p-3 font-semibold hover:bg-amber-200 hover:rounded-xl">
                 <NavLink to="/manage-my-foods">Manage My Foods</NavLink>
               </li>
-              <li>
+              <li className="p-3 font-semibold hover:bg-amber-200 hover:rounded-xl">
                 <NavLink to="/my-food-request">My Food Request</NavLink>
               </li>
-              <li>
+              <li className="p-3 font-semibold hover:bg-amber-200 hover:rounded-xl">
                 <button onClick={logout} className="text-error">
                   Logout
                 </button>

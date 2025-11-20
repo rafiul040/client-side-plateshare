@@ -9,12 +9,12 @@ const FoodRequestModal = ({ food, onClose }) => {
     contact: "",
   });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const requestData = {
@@ -28,19 +28,19 @@ const FoodRequestModal = ({ food, onClose }) => {
       status: "pending",
     };
 
-    fetch("http://localhost:5000/food-requests", {
+    fetch("https://plateshare-server-mu.vercel.app/food-requests", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestData),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.insertedId) {
           alert("✅ Food request sent successfully!");
           onClose();
         }
       })
-      .catch(err => console.error("❌ Request Failed:", err));
+      .catch((err) => console.error("❌ Request Failed:", err));
   };
 
   return (
@@ -51,7 +51,7 @@ const FoodRequestModal = ({ food, onClose }) => {
         <input
           name="location"
           type="text"
-          placeholder="Write your location"
+          placeholder="Your location"
           className="input input-bordered w-full"
           onChange={handleChange}
           required
@@ -59,7 +59,7 @@ const FoodRequestModal = ({ food, onClose }) => {
 
         <textarea
           name="reason"
-          placeholder="Why do you need food?"
+          placeholder="Why do you need this food?"
           className="textarea textarea-bordered w-full"
           onChange={handleChange}
           required
@@ -76,7 +76,7 @@ const FoodRequestModal = ({ food, onClose }) => {
 
         <div className="modal-action justify-center">
           <button type="submit" className="btn btn-primary">
-            Submit Request
+            Submit
           </button>
           <button onClick={onClose} type="button" className="btn">
             Cancel
@@ -88,4 +88,3 @@ const FoodRequestModal = ({ food, onClose }) => {
 };
 
 export default FoodRequestModal;
-

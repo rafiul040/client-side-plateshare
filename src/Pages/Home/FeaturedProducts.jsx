@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -6,7 +5,6 @@ const FeaturedProducts = () => {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
 
- 
   const parseQuantity = (quantityStr) => {
     if (typeof quantityStr === "number") return quantityStr;
     const match = quantityStr.match(/\d+/);
@@ -14,10 +12,9 @@ const FeaturedProducts = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/foods") 
+    fetch("https://plateshare-server-mu.vercel.app/foods")
       .then((res) => res.json())
       .then((data) => {
-        
         const sortedFoods = data
           .sort(
             (a, b) =>
@@ -50,13 +47,15 @@ const FeaturedProducts = () => {
     <section className="my-16 px-6 md:px-10 max-w-7xl mx-auto">
       <div className="text-center mb-4">
         <span className="px-4 py-1 bg-orange-100 text-orange-500 rounded-full text-sm font-medium">
-         🍛 Featured Foods
+          🍛 Featured Foods
         </span>
       </div>
-      <h2 className="text-3xl font-bold text-center mb-3">Discover our <span className="text-orange-500">Handpicked</span> meals ready</h2>
+      <h2 className="text-3xl font-bold text-center mb-3">
+        Discover our <span className="text-orange-500">Handpicked</span> meals
+        ready
+      </h2>
       <p className="text-center text-gray-500 max-w-xl mx-auto mb-14">
-        Highlighting the best meals
-available right now.
+        Highlighting the best meals available right now.
       </p>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {foods.map((food) => (
@@ -81,7 +80,8 @@ available right now.
                 <Link
                   to={`/food/${food._id}`}
                   className="btn bg-neutral-300 hover:bg-amber-400 text-neutral"
-                >View Details
+                >
+                  View Details
                 </Link>
               </div>
             </div>

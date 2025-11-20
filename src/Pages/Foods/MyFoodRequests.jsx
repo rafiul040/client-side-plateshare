@@ -9,9 +9,12 @@ const MyFoodRequests = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/myFoodRequests?email=${user.email}`)
+    fetch(
+      `https://plateshare-server-mu.vercel.app/myFoodRequests?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
+        console.log("Food Requests:", data);
         setRequests(data);
         setLoading(false);
       })
@@ -24,7 +27,7 @@ const MyFoodRequests = () => {
   const handleStatusChange = (id, action) => {
     const newStatus = action === "accept" ? "donated" : "rejected";
 
-    fetch(`http://localhost:3000/food-requests/${id}`, {
+    fetch(`https://plateshare-server-mu.vercel.app/food-requests/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus }),
@@ -40,18 +43,11 @@ const MyFoodRequests = () => {
       .catch((err) => console.error("Update failed:", err));
   };
 
-  // স্ট্যাটাস অনুযায়ী ব্যাজ + রঙ
   const getStatusBadge = (status) => {
     if (status === "pending") return "badge badge-warning";
-    if (status === "donated") return "badge badge-success";   // এখানে সবুজ হবে
+    if (status === "donated") return "badge badge-success";
     if (status === "rejected") return "badge badge-error";
     return "badge badge-ghost";
-  };
-
-  const getStatusText = (status) => {
-    if (status === "donated") return "Donated";
-    if (status === "rejected") return "Rejected";
-    return status.charAt(0).toUpperCase() + status.slice(1);
   };
 
   if (loading) {
@@ -60,6 +56,8 @@ const MyFoodRequests = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+            <title>Food Request | Plateshare</title>
+
       <h2 className="text-3xl font-bold mb-6 text-center">My Food Requests</h2>
 
       {requests.length === 0 ? (
@@ -79,6 +77,7 @@ const MyFoodRequests = () => {
                 <th>Actions</th>
               </tr>
             </thead>
+
             <tbody>
               {requests.map((req) => (
                 <tr key={req._id} className="hover">
@@ -87,29 +86,34 @@ const MyFoodRequests = () => {
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
                           <img
-                            src={req.photoURL || "https://i.ibb.co.com/0j1V6Tc/default-avatar.png"}
+                            src={
+                              req.photoURL ||
+                              "https://i.ibb.co/0j1V6Tc/default-avatar.png"
+                            }
                             alt={req.name}
                           />
                         </div>
                       </div>
+
                       <div>
                         <div className="font-bold">{req.name}</div>
-                        <div className="text-sm opacity-70">{req.email}</div>
+                        <div className="text-sm opacity-70">
+                          {req.userEmail}
+                        </div>
                       </div>
                     </div>
                   </td>
+
                   <td>{req.location || "—"}</td>
                   <td className="max-w-xs">{req.reason || "—"}</td>
                   <td>{req.contact || "—"}</td>
 
-                  {/* Status Badge – এখানে Donated হলে সবুজ দেখাবে */}
                   <td>
                     <span className={getStatusBadge(req.status)}>
-                      {getStatusText(req.status)}
+                      {req.status}
                     </span>
                   </td>
 
-                  {/* Action Buttons */}
                   <td>
                     {req.status === "pending" ? (
                       <div className="flex gap-2">
@@ -119,6 +123,7 @@ const MyFoodRequests = () => {
                         >
                           Accept
                         </button>
+
                         <button
                           onClick={() => handleStatusChange(req._id, "reject")}
                           className="btn btn-error btn-sm"

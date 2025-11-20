@@ -14,7 +14,7 @@ const ManageMyFoods = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `http://localhost:3000/my-foods?email=${user.email}`
+        `https://plateshare-server-mu.vercel.app/my-foods?email=${user.email}`
       );
       setFoods(res.data);
     } catch (err) {
@@ -27,7 +27,6 @@ const ManageMyFoods = () => {
   useEffect(() => {
     fetchMyFoods();
 
-    
     const handleFoodAdded = () => {
       fetchMyFoods();
     };
@@ -49,7 +48,9 @@ const ManageMyFoods = () => {
       cancelButtonText: "Cancel",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await axios.delete(`http://localhost:3000/foods/${id}`);
+        const res = await axios.delete(
+          `https://plateshare-server-mu.vercel.app/foods/${id}`
+        );
         if (res.data.deletedCount > 0) {
           setFoods(foods.filter((f) => f._id !== id));
           Swal.fire("Deleted!", "Food removed successfully", "success");
@@ -72,7 +73,7 @@ const ManageMyFoods = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:3000/foods/${selectedFood._id}`,
+        `https://plateshare-server-mu.vercel.app/foods/${selectedFood._id}`,
         updatedData
       );
 
@@ -84,21 +85,26 @@ const ManageMyFoods = () => {
         );
         setSelectedFood(null);
         Swal.fire("Updated!", "Food updated successfully", "success");
-        window.dispatchEvent(new Event("foodAdded")); 
+        window.dispatchEvent(new Event("foodAdded"));
       }
     } catch (err) {
       Swal.fire("Error", "Failed to update", "error");
     }
   };
 
-  if (loading) return <div className="text-center py-10">Loading your foods...</div>;
+  if (loading)
+    return <div className="text-center py-10">Loading your foods...</div>;
 
   return (
     <div className="max-w-6xl mx-auto my-12 px-4">
+            <title>Manage Foods | Plateshare</title>
+
       <h2 className="text-3xl font-bold text-center mb-10">Manage My Foods</h2>
 
       {foods.length === 0 ? (
-        <p className="text-center text-gray-500 text-xl">You haven't added any food yet.</p>
+        <p className="text-center text-gray-500 text-xl">
+          You haven't added any food yet.
+        </p>
       ) : (
         <div className="overflow-x-auto">
           <table className="table table-zebra w-full">
@@ -117,7 +123,11 @@ const ManageMyFoods = () => {
               {foods.map((food) => (
                 <tr key={food._id}>
                   <td>
-                    <img src={food.food_image} alt="" className="w-16 h-16 object-cover rounded" />
+                    <img
+                      src={food.food_image}
+                      alt=""
+                      className="w-16 h-16 object-cover rounded"
+                    />
                   </td>
                   <td className="font-medium">{food.food_name}</td>
                   <td>{food.food_quantity}</td>
@@ -149,7 +159,6 @@ const ManageMyFoods = () => {
         </div>
       )}
 
-      
       {selectedFood && (
         <dialog open className="modal modal-bottom sm:modal-middle">
           <div className="modal-box">

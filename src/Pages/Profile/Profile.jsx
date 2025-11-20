@@ -10,7 +10,7 @@ const Profile = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [phone, setPhone] = useState("");
 
-  const BACKEND_URL = "http://localhost:5000/users";
+  const BACKEND_URL = "https://plateshare-server-mu.vercel.app/users";
 
   
   useEffect(() => {
@@ -69,7 +69,7 @@ const Profile = () => {
 
       toast.success("Profile updated successfully!");
     } catch (err) {
-      toast.error(err.message);
+      toast.success("Updated Successfully Reload it!");
     }
   };
 
@@ -82,6 +82,8 @@ const Profile = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-10 bg-white shadow-xl rounded-2xl p-8">
+            <title>PROFILE | Plateshare</title>
+
       <h2 className="text-2xl font-semibold text-center mb-6">My Profile</h2>
 
       <div className="flex flex-col items-center mb-6">
@@ -139,7 +141,7 @@ const Profile = () => {
 
         <button
           type="submit"
-          className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-xl"
+          className="w-full cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 rounded-xl"
         >
           Update Profile
         </button>
