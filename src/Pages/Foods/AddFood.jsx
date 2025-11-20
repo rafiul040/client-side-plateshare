@@ -95,7 +95,15 @@ const AddFood = () => {
         <button
           type="submit"
           disabled={loading}
-          className="btn btn-success w-full text-white text-lg"
+          // className="btn btn-success w-full text-white text-lg"
+          className="btn-grad w-full
+         text-white uppercase text-center
+         px-11 py-4 m-2 block
+         rounded-[10px] shadow-[0_0_20px_#eee]
+         bg-gradient-to-r from-[#ffb347] via-[#ffcc33] to-[#ffb347]
+         bg-[length:200%_auto]
+         transition-all duration-500
+         hover:bg-[position:right_center]"
         >
           {loading ? "Adding..." : "Add Food"}
         </button>
