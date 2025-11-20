@@ -6,7 +6,7 @@ const FeaturedProducts = () => {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Helper function to parse quantity number from string like "Serves 5 people"
+ 
   const parseQuantity = (quantityStr) => {
     if (typeof quantityStr === "number") return quantityStr;
     const match = quantityStr.match(/\d+/);
@@ -14,10 +14,10 @@ const FeaturedProducts = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/foods") // Replace with your actual backend URL
+    fetch("http://localhost:3000/foods") 
       .then((res) => res.json())
       .then((data) => {
-        // Sort descending by quantity number and take top 6
+        
         const sortedFoods = data
           .sort(
             (a, b) =>

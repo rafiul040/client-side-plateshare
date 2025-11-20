@@ -61,10 +61,10 @@ const OurMission = () => {
             
             <div className="text-3xl bg-amber-400 mx-auto w-30 h-30 font-semibold flex justify-center items-center rounded-full mb-4">{item.icon}</div>
 
-            {/* TITLE */}
+            
             <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
 
-            {/* DESCRIPTION */}
+            
             <p className="text-gray-600 text-sm leading-relaxed">
               {item.desc}
             </p>

@@ -32,7 +32,7 @@ const AddFood = () => {
         toast.success("Food added successfully!");
         form.reset();
 
-        // এটা সবচেয়ে গুরুত্বপূর্ণ: অন্য কম্পোনেন্টকে জানায় যে নতুন ফুড এসেছে
+        
         window.dispatchEvent(new Event("foodAdded"));
       }
     } catch (error) {

@@ -27,7 +27,7 @@ const ManageMyFoods = () => {
   useEffect(() => {
     fetchMyFoods();
 
-    // লাইভ আপডেটের জন্য: AddFood থেকে ইভেন্ট শুনবে
+    
     const handleFoodAdded = () => {
       fetchMyFoods();
     };
@@ -84,7 +84,7 @@ const ManageMyFoods = () => {
         );
         setSelectedFood(null);
         Swal.fire("Updated!", "Food updated successfully", "success");
-        window.dispatchEvent(new Event("foodAdded")); // লিস্ট রিফ্রেশ
+        window.dispatchEvent(new Event("foodAdded")); 
       }
     } catch (err) {
       Swal.fire("Error", "Failed to update", "error");
@@ -149,7 +149,7 @@ const ManageMyFoods = () => {
         </div>
       )}
 
-      {/* Update Modal */}
+      
       {selectedFood && (
         <dialog open className="modal modal-bottom sm:modal-middle">
           <div className="modal-box">

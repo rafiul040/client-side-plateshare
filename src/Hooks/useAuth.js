@@ -1,4 +1,4 @@
-// src/Hooks/useAuth.js
+
 import { auth } from "../Firebase/firebase.config";
 import {
   GoogleAuthProvider,

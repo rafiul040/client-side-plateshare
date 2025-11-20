@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
-// import FoodRequestsTable from "../components/FoodRequestsTable"; // new component (below)
 import FoodRequestsTable from "./FoodRequestsTable";
 
 
@@ -18,14 +17,14 @@ const FoodDetails = () => {
   const [food, setFood] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Request modal state & form fields
+  
   const [openRequestModal, setOpenRequestModal] = useState(false);
   const [locationInput, setLocationInput] = useState("");
   const [reasonInput, setReasonInput] = useState("");
   const [contactInput, setContactInput] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  // Load the selected food
+  
   useEffect(() => {
     setLoading(true);
     axios
@@ -56,7 +55,7 @@ const FoodDetails = () => {
     food_status,
   } = food;
 
-  // Open request modal (only for logged-in users)
+  
   const openModal = () => {
     if (!user) {
       Swal.fire("Please login first!", "", "info");
@@ -67,14 +66,14 @@ const FoodDetails = () => {
       Swal.fire("This food is already donated.", "", "warning");
       return;
     }
-    // reset fields
+  
     setLocationInput("");
     setReasonInput("");
     setContactInput("");
     setOpenRequestModal(true);
   };
 
-  // Submit request form
+  
   const submitRequest = async (e) => {
     e.preventDefault();
     if (!user) {
@@ -87,7 +86,6 @@ const FoodDetails = () => {
     }
 
     const requestData = {
-      // match backend expectations: use requesterEmail / requesterName / requesterPhoto
       foodId: id,
       requesterEmail: user.email,
       requesterName: user.displayName || "Anonymous",
@@ -105,7 +103,7 @@ const FoodDetails = () => {
       setSubmitting(true);
       const res = await axios.post(`${API}/food-requests`, requestData);
 
-      // success
+  
       if (res.data.insertedId || res.data.acknowledged) {
         Swal.fire("Request sent!", "Your request is pending approval.", "success");
         setOpenRequestModal(false);
@@ -178,12 +176,12 @@ const FoodDetails = () => {
         </div>
       </div>
 
-      {/* Owner-only Requests Table */}
+      
       {user?.email === donator_email && (
         <div className="mt-12">
           <h2 className="text-2xl font-semibold mb-4">Food Requests</h2>
           <FoodRequestsTable foodId={id} onStatusUpdate={(newStatus) => {
-            // if donated, update food local state
+            
             if (newStatus === "accepted") {
               setFood((prev) => ({ ...prev, food_status: "donated" }));
             }
@@ -191,7 +189,7 @@ const FoodDetails = () => {
         </div>
       )}
 
-      {/* Request Modal */}
+      
       {openRequestModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
           <div className="bg-white w-full max-w-md rounded-lg p-6 mx-4">

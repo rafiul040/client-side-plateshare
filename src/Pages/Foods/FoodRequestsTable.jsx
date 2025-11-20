@@ -5,11 +5,7 @@ import Swal from "sweetalert2";
 
 const API = "http://localhost:3000";
 
-/**
- * Props:
- * - foodId: id of the food to load requests for
- * - onStatusUpdate: callback(newStatus) optional, e.g. to update parent food status
- */
+
 const FoodRequestsTable = ({ foodId, onStatusUpdate }) => {
   const { user } = useContext(AuthContext);
   const [requests, setRequests] = useState([]);
@@ -22,10 +18,10 @@ const FoodRequestsTable = ({ foodId, onStatusUpdate }) => {
     axios
       .get(`${API}/food-requests/${foodId}`)
       .then((res) => {
-        // Normalize returned objects: some fields could be requesterEmail or requester_email
+        
         const list = (res.data || []).map((r) => ({
           ...r,
-          // ensure we can display name/photo properly
+        
           requesterName: r.requesterName || r.name || r.requester_name || "",
           requesterEmail: r.requesterEmail || r.requester_email || r.email || "",
           requesterPhoto: r.requesterPhoto || r.requester_photo || r.photoURL || "",
@@ -61,15 +57,14 @@ const FoodRequestsTable = ({ foodId, onStatusUpdate }) => {
         foodId,
       });
 
-      // update local request statuses:
+      
       setRequests((prev) =>
         prev.map((r) =>
           r._id === requestId ? { ...r, status: "accepted" } : r
         )
       );
 
-      // also mark other pending requests maybe as rejected or keep them pending.
-      // We'll keep them as-is, but parent can update food status:
+      
       if (onStatusUpdate) onStatusUpdate("accepted");
 
       Swal.fire("Accepted", "Request accepted & food marked donated", "success");

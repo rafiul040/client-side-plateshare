@@ -1,4 +1,4 @@
-// src/Context/AuthProvider.js
+
 import React, { createContext, useState, useEffect } from "react";
 import { auth } from "../Firebase/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
@@ -29,3 +29,4 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+export default AuthContext

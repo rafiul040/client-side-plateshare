@@ -60,17 +60,17 @@ const HowItWorks = () => {
               <div className="w-16 h-16 bg-orange-100 rounded-full blur-xl absolute bottom-4 right-4"></div>
             </div>
 
-            {/* Icon circle */}
+          
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-200 to-orange-400 flex items-center justify-center text-3xl shadow-lg">
               {step.icon}
             </div>
 
-            {/* Title */}
+            
             <h3 className="text-xl font-semibold mb-2">
               Step {step.id}: {step.title}
             </h3>
 
-            {/* Description */}
+            
             <p className="text-gray-600 text-sm leading-relaxed">{step.desc}</p>
           </div>
         ))}
