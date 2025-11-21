@@ -7,7 +7,7 @@
 \*\*A complete MERN-based platform where users can donate food, and anyone in need can request food.
 Food owners can accept/reject requests and manage their donated items.
 
-### Live Site: [https://plateshare.netlify.app](https://plateshare.netlify.app)
+### Live Site: [https://curious-palmier-ba6203.netlify.app/my-food-request](https://curious-palmier-ba6203.netlify.app/my-food-request)
 
 ### 🔑 Features: User System
 
