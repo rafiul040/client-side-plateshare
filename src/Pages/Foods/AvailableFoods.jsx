@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { api } from "../../utils/axiosInstance";
+import { api } from "../../Utils/axiosInstance";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
 const AvailableFoods = () => {
@@ -111,5 +111,4 @@ const AvailableFoods = () => {
     </div>
   );
 };
-
 export default AvailableFoods;

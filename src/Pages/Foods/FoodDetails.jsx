@@ -7,7 +7,7 @@ import FoodRequestsTable from "./FoodRequestsTable";
 
 
 
-const API = "http://localhost:3000";
+const API = "https://plateshare-server-mu.vercel.app";
 
 const FoodDetails = () => {
   const { id } = useParams();
